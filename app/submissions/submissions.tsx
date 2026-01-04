@@ -49,6 +49,32 @@ export default function SubmissionsPage() {
       header: "Email",
       cell: (info) => info.getValue(),
     }),
+    columnHelper.accessor("route", {
+      header: "Route",
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("returnRoute", {
+      header: "Return Route",
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("returnAddress", {
+      header: "Return Address",
+      cell: ({ getValue }) => (
+        <span>
+          {getValue()?.line1}
+          {getValue()?.line2 ? " " + getValue().line2 : ""}, {getValue()?.city},{" "}
+          {getValue()?.state} {getValue()?.zip}
+        </span>
+      ),
+    }),
+    columnHelper.accessor("returnLocation", {
+      header: "Return Location",
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("pickUpLocation", {
+      header: "Pick Up Location",
+      cell: (info) => info.getValue(),
+    }),
   ];
   const table = useReactTable({
     data,
