@@ -5,6 +5,7 @@ import { db } from "@/db/index";
 import { nextCookies } from "better-auth/next-js";
 
 export const auth = betterAuth({
+  trustedOrigins: ["http://localhost:3000", "https://cctapp.netlify.app"],
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID! as string,
