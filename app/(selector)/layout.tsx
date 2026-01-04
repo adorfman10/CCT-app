@@ -1,3 +1,4 @@
+"use client";
 import { CamperSelector } from "@/components/ui/CamperSelector";
 import { EmptyTagSelector } from "@/components/ui/EmptyTagSelector";
 

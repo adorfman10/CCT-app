@@ -4,7 +4,15 @@ import { useContext, useEffect, useState } from "react";
 import { TruckingDataContext } from "@/context/TruckingDataContext";
 import type { TruckingData } from "@/models/TruckingData";
 import type { TagInfo } from "./Tag";
-import { Document, PDFViewer } from "@react-pdf/renderer";
+import dynamic from "next/dynamic";
+const PDFViewer = dynamic(
+  () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
+  {
+    ssr: false,
+    loading: () => <p>Loading...</p>,
+  }
+);
+import { Document } from "@react-pdf/renderer";
 import { MyPage } from "./Page";
 
 const createTags = (
