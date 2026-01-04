@@ -1,12 +1,13 @@
 "use client";
-import {
-  Document,
-  PDFViewer,
-  Page,
-  View,
-  Text,
-  StyleSheet,
-} from "@react-pdf/renderer";
+import { Document, Page, View, Text, StyleSheet } from "@react-pdf/renderer";
+import dynamic from "next/dynamic";
+const PDFViewer = dynamic(
+  () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
+  {
+    ssr: false,
+    loading: () => <p>Loading...</p>,
+  }
+);
 import { useContext, useEffect, useState } from "react";
 import { TruckingDataContext } from "@/context/TruckingDataContext";
 import type { Address, Camper, TruckingData } from "@/models/TruckingData";

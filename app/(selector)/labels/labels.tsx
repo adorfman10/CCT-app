@@ -12,6 +12,7 @@ export const LabelsPage = () => {
   const { data } = useSuspenseQuery(jotformOptions);
   const { setData, numOfBlanks, selectedCampers } =
     useContext(TruckingDataContext);
+
   useEffect(() => {
     handleGetData();
   }, [numOfBlanks, selectedCampers]);
@@ -19,7 +20,6 @@ export const LabelsPage = () => {
   const handleGetData = () => {
     const parsed = parseJotform(data);
     // syncJotform(data);
-    console.log("parsed", parsed);
     setData(parsed);
   };
   return (
