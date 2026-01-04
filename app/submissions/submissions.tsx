@@ -62,8 +62,8 @@ export default function SubmissionsPage() {
       cell: ({ getValue }) => (
         <span>
           {getValue()?.line1}
-          {getValue()?.line2 ? " " + getValue().line2 : ""}, {getValue()?.city},{" "}
-          {getValue()?.state} {getValue()?.zip}
+          {getValue()?.line2 ? " " + getValue()?.line2 : ""}, {getValue()?.city}
+          , {getValue()?.state} {getValue()?.zip}
         </span>
       ),
     }),
