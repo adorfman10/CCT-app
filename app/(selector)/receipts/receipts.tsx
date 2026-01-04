@@ -11,10 +11,7 @@ import { Label } from "@/components/ui/label";
 
 import { ReceiptPdfWrapper } from "@/components/pdf/ReceiptsPdfWrapper";
 import { TruckingDataContext } from "@/context/TruckingDataContext";
-import { useContext, useEffect } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { parseJotform } from "@/util/parseJotfrom";
-import { jotformOptions } from "../jotform";
+import { useContext } from "react";
 const FromToSelector = () => {
   const { fromTo, setFromTo } = useContext(TruckingDataContext);
 
@@ -41,18 +38,6 @@ const FromToSelector = () => {
   );
 };
 export const ReceiptsPage = () => {
-  const { data } = useSuspenseQuery(jotformOptions);
-  const { setData, numOfBlanks, selectedCampers } =
-    useContext(TruckingDataContext);
-
-  useEffect(() => {
-    handleGetData();
-  }, [numOfBlanks, selectedCampers]);
-
-  const handleGetData = () => {
-    const parsed = parseJotform(data);
-    setData(parsed);
-  };
   return (
     <>
       <FromToSelector />

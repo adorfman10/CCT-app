@@ -9,11 +9,11 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
 
   return (
-    <TruckingDataProvider>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <TruckingDataProvider>
         {children}
         <ReactQueryDevtools />
-      </QueryClientProvider>
-    </TruckingDataProvider>
+      </TruckingDataProvider>
+    </QueryClientProvider>
   );
 }

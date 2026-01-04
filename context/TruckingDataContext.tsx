@@ -1,6 +1,9 @@
 "use client";
+import { getJotformData } from "@/util/fetchJotform";
 import type { TruckingData } from "@/models/TruckingData";
-import { createContext, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { createContext, useContext, useEffect, useState } from "react";
+import { parseJotform } from "@/util/parseJotform";
 
 const defaultTruckingDataContext: {
   data: TruckingData[];
@@ -34,6 +37,12 @@ export const TruckingDataProvider = ({
   const [selectedCampers, setSelectedCampers] = useState<string[]>([]);
   const [numOfBlanks, setNumOfBlanks] = useState<number>(0);
   const [fromTo, setFromTo] = useState<"Return From" | "To">("Return From");
+
+  useEffect(() => {
+    getJotformData().then((data) => {
+      setData(parseJotform(data));
+    });
+  }, []);
   return (
     <TruckingDataContext.Provider
       value={{

@@ -15,6 +15,9 @@ export default async function NavBar() {
         <Link href="/" className="underline underline-offset-2">
           Home
         </Link>
+        <Link href="/submissions" className="underline underline-offset-2">
+          Submissions
+        </Link>
         <Link href="/labels" className="underline underline-offset-2">
           Labels
         </Link>

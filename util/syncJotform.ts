@@ -2,7 +2,7 @@ import { db } from "@/db";
 import { JotformResponse } from "@/models/jotform";
 import { familySubmission } from "@/db/schema/familySubmission";
 import { type InferSelectModel } from "drizzle-orm";
-import { parseJotform } from "./parseJotfrom";
+import { parseJotform } from "./parseJotform";
 
 export const jotformToDb = (
   jotformResp: JotformResponse
