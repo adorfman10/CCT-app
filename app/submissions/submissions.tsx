@@ -2,7 +2,7 @@
 
 import { TruckingDataContext } from "@/context/TruckingDataContext";
 import { TruckingData } from "@/models/TruckingData";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import {
   createColumnHelper,
@@ -10,8 +10,37 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { Button } from "@/components/ui/button";
 
-export default function SubmissionsPage() {
+export default function SubmissionsPage({
+  syncAction,
+}: {
+  syncAction: () => Promise<{ success: boolean; error?: string }>;
+}) {
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [syncResult, setSyncResult] = useState<{
+    success: boolean;
+    error?: string;
+  } | null>(null);
+
+  const handleSync = async () => {
+    try {
+      setIsSyncing(true);
+      const result = await syncAction();
+      setSyncResult(result);
+    } catch (error) {
+      console.error("Sync error:", error);
+      setSyncResult({
+        success: false,
+        error:
+          error instanceof Error
+            ? error.message
+            : "Failed to sync Jotform data",
+      });
+    } finally {
+      setIsSyncing(false);
+    }
+  };
   const { data } = useContext(TruckingDataContext);
   const columnHelper = createColumnHelper<TruckingData>();
 
@@ -83,6 +112,22 @@ export default function SubmissionsPage() {
   });
   return (
     <div>
+      <div className="mb-4 flex items-center gap-4">
+        <Button onClick={handleSync} disabled={isSyncing}>
+          {isSyncing ? "Syncing..." : "Sync Jotform"}
+        </Button>
+        {syncResult && (
+          <span
+            className={`text-sm ${
+              syncResult.success ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {syncResult.success
+              ? "Sync successful!"
+              : `Error: ${syncResult.error}`}
+          </span>
+        )}
+      </div>
       <div className="border border-gray-300 bg-background">
         <table className="min-w-full divide-y divide-gray-300">
           <thead>
